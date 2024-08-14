@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-    <Products/>
+    <Products jsonFilePath="/data/output.json" />
       <h1>hello world</h1>
     </>
   )
