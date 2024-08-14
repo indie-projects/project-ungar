@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
   from {
@@ -98,25 +98,25 @@ const ErrorMessage = styled.div`
   padding: 20px;
 `;
 
-const Products = () => {
+const Products = ({ currentLanguage }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/output.json')
-      .then(response => {
+    fetch("/output.json")
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setProducts(data);
         setLoading(false);
       })
-      .catch(error => {
-        console.error('Error loading JSON data:', error);
+      .catch((error) => {
+        console.error("Error loading JSON data:", error);
         setError(error.message);
         setLoading(false);
       });
@@ -132,27 +132,60 @@ const Products = () => {
 
   return (
     <ProductsContainer>
-      {products.map(product => (
-        <ProductCard key={product.filename}>
-          {product.content.images.length > 0 && (
-            <ProductImage
-              src={product.content.images[0].url}
-              alt={product.filename}
-            />
-          )}
-          <ProductDetails>
-            <ProductTitle>{product.content.text.model}</ProductTitle>
-            <ProductDescription>{product.content.text.description}</ProductDescription>
-            <ProductPrice><strong>Price:</strong> {product.content.text.price}</ProductPrice>
-            <SpecificationsList>
-              <SpecificationItem><strong>Power:</strong> {product.content.text.specifications.power}</SpecificationItem>
-              <SpecificationItem><strong>Sound Pressure:</strong> {product.content.text.specifications.sound_pressure}</SpecificationItem>
-              <SpecificationItem><strong>Dimensions:</strong> {product.content.text.specifications.dimensions}</SpecificationItem>
-              <SpecificationItem><strong>Weight:</strong> {product.content.text.specifications.weight}</SpecificationItem>
-            </SpecificationsList>
-          </ProductDetails>
-        </ProductCard>
-      ))}
+      {products.map((product) => {
+        const productText = product.content.text[currentLanguage];
+
+        if (!productText) {
+          return null;
+        }
+
+        return (
+          <ProductCard key={product.filename}>
+            {product.content.images.length > 0 && (
+              <ProductImage
+                src={product.content.images[0].url}
+                alt={product.filename}
+              />
+            )}
+            <ProductDetails>
+              <ProductTitle>{productText.model}</ProductTitle>
+              <ProductDescription>{productText.description}</ProductDescription>
+              <ProductPrice>
+                <strong>{currentLanguage === "hu" ? "Ár:" : "Price:"}</strong>{" "}
+                {productText.price}
+              </ProductPrice>
+              <SpecificationsList>
+                <SpecificationItem>
+                  <strong>
+                    {currentLanguage === "hu" ? "Teljesítmény:" : "Power:"}
+                  </strong>{" "}
+                  {productText.specifications.power}
+                </SpecificationItem>
+                <SpecificationItem>
+                  <strong>
+                    {currentLanguage === "hu"
+                      ? "Hangnyomás:"
+                      : "Sound Pressure:"}
+                  </strong>{" "}
+                  {productText.specifications.sound_pressure}
+                </SpecificationItem>
+                <SpecificationItem>
+                  <strong>
+                    {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
+                  </strong>{" "}
+                  {productText.specifications.dimensions}
+                </SpecificationItem>
+                <SpecificationItem>
+                  <strong>
+                    {currentLanguage === "hu" ? "Súly:" : "Weight:"}
+                  </strong>{" "}
+                  {productText.specifications.weight}
+                </SpecificationItem>
+              </SpecificationsList>
+            </ProductDetails>
+          </ProductCard>
+        );
+      })}
     </ProductsContainer>
   );
 };
