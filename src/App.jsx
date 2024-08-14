@@ -6,8 +6,8 @@ function App() {
 
   return (
     <>
-    {/* <Products jsonFilePath="/data/output.json" /> */}
-    <EmailJs/>
+    <Products jsonFilePath="/data/output.json" />
+    {/* <EmailJs/> */}
     </>
   )
 }
