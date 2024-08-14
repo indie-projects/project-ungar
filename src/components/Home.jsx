@@ -6,6 +6,7 @@ const HomeContainer = styled.div`
   text-align: center;
   color: #e0e0e0;
   background: url("/images/IMG-20240802-WA0004.jpg") no-repeat center center;
+  background-size: cover;
   width: 100vw;
   height: 100vh;
 `;
