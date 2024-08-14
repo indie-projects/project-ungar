@@ -12,6 +12,8 @@
   "dependencies": {
     "@ionic/react": "^8.2.7",
     "@ionic/react-router": "^8.2.7",
+    "dotenv": "^16.4.5",
+    "emailjs-com": "^3.2.0",
     "i18next": "^23.12.3",
     "latest": "^0.2.0",
     "react": "^18.3.1",

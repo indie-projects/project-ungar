@@ -20,14 +20,19 @@ function EmailJs() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_1wso0e5', 'template_gkmn4fq', e.target, 'ET5y7RWi8YEbGLXIQ')
-      .then((result) => {
-        console.log(result.text);
-        setStatus('Email sent successfully!');
-      }, (error) => {
-        console.log(error.text);
-        setStatus('Failed to send email.');
-      });
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      e.target,
+      import.meta.env.VITE_EMAILJS_USER_ID
+    )
+    .then((result) => {
+      console.log(result.text);
+      setStatus('Email sent successfully!');
+    }, (error) => {
+      console.log(error.text);
+      setStatus('Failed to send email.');
+    });
   };
 
   return (
