@@ -143,7 +143,7 @@ function EmailJs() {
   return (
     <StyledContainer>
       <Form onSubmit={handleSubmit}>
-        <h2>Contact Us</h2>
+        <h2>Contact Me</h2>
         <InputGroup>
           <label>Name:</label>
           <input
