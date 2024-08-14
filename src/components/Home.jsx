@@ -7,8 +7,12 @@ const HomeContainer = styled.div`
   color: #e0e0e0;
   background: url("/images/IMG-20240802-WA0004.jpg") no-repeat center center;
   background-size: cover;
-  width: 100vw;
+  background-attachment: fixed;
+  width: 100%; /* Vermeide 100vw, damit der Scrollbalken nicht berücksichtigt wird */
   height: 100vh;
+  box-sizing: border-box; /* Stellt sicher, dass Padding nicht zur Gesamtbreite addiert wird */
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+  margin: 0; /* Entfernt Standard-Margin, die zu Überlauf führen kann */
 `;
 
 const Home = ({ currentLanguage }) => {
