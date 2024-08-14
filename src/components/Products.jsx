@@ -45,10 +45,11 @@ const ProductCard = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  max-height: 200px; /* Begrenze die Höhe, um sicherzustellen, dass das Bild nicht zu groß ist */
+  object-fit: contain; /* Stellt sicher, dass das gesamte Bild angezeigt wird, ohne es zu beschneiden */
   border-bottom: 1px solid #444;
 `;
+
 
 const ProductDetails = styled.div`
   padding: 15px;
