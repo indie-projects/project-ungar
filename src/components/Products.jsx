@@ -174,20 +174,8 @@ const Products = ({ currentLanguage }) => {
                   {productText.price}
                 </ProductPrice>
                 <SpecificationsList>
-                  <SpecificationItem>
-                    <strong>
-                      {currentLanguage === "hu" ? "Teljesítmény:" : "Power:"}
-                    </strong>{" "}
-                    {productText.specifications.power}
-                  </SpecificationItem>
-                  <SpecificationItem>
-                    <strong>
-                      {currentLanguage === "hu"
-                        ? "Hangnyomás:"
-                        : "Sound Pressure:"}
-                    </strong>{" "}
-                    {productText.specifications.sound_pressure}
-                  </SpecificationItem>
+                  
+                 
                   <SpecificationItem>
                     <strong>
                       {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
