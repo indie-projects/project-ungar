@@ -35,11 +35,10 @@ const ProductCard = styled.div`
   width: calc(33% - 30px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center; /* Horizontale Zentrierung */
-  justify-content: center; /* Vertikale Zentrierung */
   text-align: center; /* Textzentrierung */
 
   &:hover {
@@ -56,34 +55,45 @@ const ProductCard = styled.div`
   }
 `;
 
+const ProductImageContainer = styled.div`
+  width: 100%;
+  height: 200px; /* Feste Höhe für einheitliche Bildgrößen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Verhindert, dass das Bild den Container überschreitet */
+  background-color: #333; /* Hintergrundfarbe, um Bild sichtbar zu machen */
+  border-bottom: 1px solid #444;
+`;
+
 const ProductImage = styled.img`
   width: 100%;
-  max-height: 200px; 
-  object-fit: contain;
-  border-bottom: 1px solid #444;
+  height: 100%;
+  object-fit: contain; /* Bild proportional skalieren, um das gesamte Bild anzuzeigen */
 `;
 
 const ProductDetails = styled.div`
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ProductTitle = styled.h2`
   font-size: 1.5em;
   margin: 0;
   color: #f0f0f0;
-  text-align: center; /* Textzentrierung */
 `;
 
 const ProductDescription = styled.p`
   margin: 10px 0;
   color: #b0b0b0;
-  text-align: center; /* Textzentrierung */
 `;
 
 const ProductPrice = styled.p`
   font-weight: bold;
   color: #f0f0f0;
-  text-align: center; /* Textzentrierung */
+  margin: 10px 0;
 `;
 
 const SpecificationsList = styled.ul`
@@ -91,11 +101,14 @@ const SpecificationsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #b0b0b0;
-  text-align: center; /* Textzentrierung */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 `;
 
 const SpecificationItem = styled.li`
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* Größerer Abstand zwischen den Zeilen */
   font-size: 0.9em;
 
   strong {
@@ -160,12 +173,14 @@ const Products = ({ currentLanguage }) => {
 
           return (
             <ProductCard key={product.filename}>
-              {product.content.images.length > 0 && (
-                <ProductImage
-                  src={product.content.images[0].url}
-                  alt={product.filename}
-                />
-              )}
+              <ProductImageContainer>
+                {product.content.images.length > 0 && (
+                  <ProductImage
+                    src={product.content.images[0].url}
+                    alt={product.filename}
+                  />
+                )}
+              </ProductImageContainer>
               <ProductDetails>
                 <ProductTitle>{productText.model}</ProductTitle>
                 <ProductDescription>{productText.description}</ProductDescription>
@@ -174,8 +189,6 @@ const Products = ({ currentLanguage }) => {
                   {productText.price}
                 </ProductPrice>
                 <SpecificationsList>
-                  
-                 
                   <SpecificationItem>
                     <strong>
                       {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
