@@ -11,11 +11,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    // overflow: hidden;
   }
   
   body {
     font-family: Arial, sans-serif; /* Optional: Setze eine Standard-Schriftart */
-    overflow-x: hidden; /* Verhindert horizontales Scrollen über die ganze App */
+    overflow: hidden; /* Verhindert das Scrollen des gesamten Körpers */
   }
 `;
 

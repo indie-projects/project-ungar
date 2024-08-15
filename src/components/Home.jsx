@@ -13,7 +13,9 @@ const HomeContainer = styled.div`
   height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden; /* Kein Scrollen */
+    min-height: 100vh; /* Stelle sicher, dass die Höhe des Containers mindestens so groß wie der Viewport ist */
+
+  overflow: visible; /* Stelle sicher, dass die Überlaufbehandlung auf 'auto' oder 'scroll' gesetzt ist */
 `;
 
 // Akzentfarbe für Call-to-Action (rot für BÉRLÉS)

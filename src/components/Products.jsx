@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, createGlobalStyle } from "styled-components";
+
+// Globale Stile für die Produkte-Komponente
+const GlobalProductsStyle = createGlobalStyle`
+  body {
+    overflow: visible; /* Ermöglicht das Scrollen bei Bedarf */
+  }
+`;
 
 const fadeIn = keyframes`
   from {
@@ -141,62 +148,65 @@ const Products = ({ currentLanguage }) => {
   }
 
   return (
-    <ProductsContainer>
-      {products.map((product) => {
-        const productText = product.content.text[currentLanguage];
+    <>
+      <GlobalProductsStyle /> {/* Füge die globalen Styles nur in dieser Komponente hinzu */}
+      <ProductsContainer>
+        {products.map((product) => {
+          const productText = product.content.text[currentLanguage];
 
-        if (!productText) {
-          return null;
-        }
+          if (!productText) {
+            return null;
+          }
 
-        return (
-          <ProductCard key={product.filename}>
-            {product.content.images.length > 0 && (
-              <ProductImage
-                src={product.content.images[0].url}
-                alt={product.filename}
-              />
-            )}
-            <ProductDetails>
-              <ProductTitle>{productText.model}</ProductTitle>
-              <ProductDescription>{productText.description}</ProductDescription>
-              <ProductPrice>
-                <strong>{currentLanguage === "hu" ? "Ár:" : "Price:"}</strong>{" "}
-                {productText.price}
-              </ProductPrice>
-              <SpecificationsList>
-                <SpecificationItem>
-                  <strong>
-                    {currentLanguage === "hu" ? "Teljesítmény:" : "Power:"}
-                  </strong>{" "}
-                  {productText.specifications.power}
-                </SpecificationItem>
-                <SpecificationItem>
-                  <strong>
-                    {currentLanguage === "hu"
-                      ? "Hangnyomás:"
-                      : "Sound Pressure:"}
-                  </strong>{" "}
-                  {productText.specifications.sound_pressure}
-                </SpecificationItem>
-                <SpecificationItem>
-                  <strong>
-                    {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
-                  </strong>{" "}
-                  {productText.specifications.dimensions}
-                </SpecificationItem>
-                <SpecificationItem>
-                  <strong>
-                    {currentLanguage === "hu" ? "Súly:" : "Weight:"}
-                  </strong>{" "}
-                  {productText.specifications.weight}
-                </SpecificationItem>
-              </SpecificationsList>
-            </ProductDetails>
-          </ProductCard>
-        );
-      })}
-    </ProductsContainer>
+          return (
+            <ProductCard key={product.filename}>
+              {product.content.images.length > 0 && (
+                <ProductImage
+                  src={product.content.images[0].url}
+                  alt={product.filename}
+                />
+              )}
+              <ProductDetails>
+                <ProductTitle>{productText.model}</ProductTitle>
+                <ProductDescription>{productText.description}</ProductDescription>
+                <ProductPrice>
+                  <strong>{currentLanguage === "hu" ? "Ár:" : "Price:"}</strong>{" "}
+                  {productText.price}
+                </ProductPrice>
+                <SpecificationsList>
+                  <SpecificationItem>
+                    <strong>
+                      {currentLanguage === "hu" ? "Teljesítmény:" : "Power:"}
+                    </strong>{" "}
+                    {productText.specifications.power}
+                  </SpecificationItem>
+                  <SpecificationItem>
+                    <strong>
+                      {currentLanguage === "hu"
+                        ? "Hangnyomás:"
+                        : "Sound Pressure:"}
+                    </strong>{" "}
+                    {productText.specifications.sound_pressure}
+                  </SpecificationItem>
+                  <SpecificationItem>
+                    <strong>
+                      {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
+                    </strong>{" "}
+                    {productText.specifications.dimensions}
+                  </SpecificationItem>
+                  <SpecificationItem>
+                    <strong>
+                      {currentLanguage === "hu" ? "Súly:" : "Weight:"}
+                    </strong>{" "}
+                    {productText.specifications.weight}
+                  </SpecificationItem>
+                </SpecificationsList>
+              </ProductDetails>
+            </ProductCard>
+          );
+        })}
+      </ProductsContainer>
+    </>
   );
 };
 
