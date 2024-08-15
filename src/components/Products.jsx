@@ -28,6 +28,12 @@ const ProductCard = styled.div`
   width: calc(33% - 30px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontale Zentrierung */
+  justify-content: center; /* Vertikale Zentrierung */
+  text-align: center; /* Textzentrierung */
 
   &:hover {
     transform: scale(1.03);
@@ -45,11 +51,10 @@ const ProductCard = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
-  max-height: 200px; /* Begrenze die Höhe, um sicherzustellen, dass das Bild nicht zu groß ist */
-  object-fit: contain; /* Stellt sicher, dass das gesamte Bild angezeigt wird, ohne es zu beschneiden */
+  max-height: 200px; 
+  object-fit: contain;
   border-bottom: 1px solid #444;
 `;
-
 
 const ProductDetails = styled.div`
   padding: 15px;
@@ -59,16 +64,19 @@ const ProductTitle = styled.h2`
   font-size: 1.5em;
   margin: 0;
   color: #f0f0f0;
+  text-align: center; /* Textzentrierung */
 `;
 
 const ProductDescription = styled.p`
   margin: 10px 0;
   color: #b0b0b0;
+  text-align: center; /* Textzentrierung */
 `;
 
 const ProductPrice = styled.p`
   font-weight: bold;
   color: #f0f0f0;
+  text-align: center; /* Textzentrierung */
 `;
 
 const SpecificationsList = styled.ul`
@@ -76,6 +84,7 @@ const SpecificationsList = styled.ul`
   padding: 0;
   margin: 0;
   color: #b0b0b0;
+  text-align: center; /* Textzentrierung */
 `;
 
 const SpecificationItem = styled.li`
