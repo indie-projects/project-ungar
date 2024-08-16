@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 // import picture from "../"
+import logo from "../assets/IMG_0106.png";
 
 // Keyframe für sanftes Einblenden des Navbars
 const fadeIn = keyframes`
@@ -75,6 +76,11 @@ const NavLink = styled(Link)`
   }
 `;
 
+const Logo = styled.img`
+  height: 50px;
+  width: auto;
+`;
+
 const LanguageSwitcher = styled.div`
   display: flex;
   gap: 15px;
@@ -102,6 +108,10 @@ const Navbar = ({ currentLanguage, switchLanguage }) => {
   return (
     <NavbarContainer>
       <NavLinks>
+        <NavLink to="/">
+          <Logo src={logo} alt=" NoName Sound Logo" />{" "}
+          {/* A logó mint kattintható kép */}
+        </NavLink>
         <NavLink to="/">
           {currentLanguage === "hu" ? "Főoldal" : "Home"}
         </NavLink>
