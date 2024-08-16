@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+// import picture from "../"
 
 // Keyframe für sanftes Einblenden des Navbars
 const fadeIn = keyframes`
