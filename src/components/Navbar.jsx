@@ -18,6 +18,7 @@ const fadeIn = keyframes`
 
 const NavbarContainer = styled.nav`
   background-color: #1a1a1a;
+
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -26,17 +27,17 @@ const NavbarContainer = styled.nav`
   top: 0;
   z-index: 1000;
   animation: ${fadeIn} 0.5s ease-in-out;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-
+  box-shadow: 0 4px 8px 4px rgba(200, 200, 200, 0.3);
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
 const Logo = styled.img`
-  height: 50px;
-  width: auto;
+  height: auto;
+  width: 100px;
+  cursor: pointer;
 `;
 
 const NavLinks = styled.div`
@@ -45,11 +46,17 @@ const NavLinks = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    width: 100%;
-    display: ${({ isOpen }) =>
-      isOpen
-        ? "flex"
-        : "none"}; // Csak akkor jelenik meg, ha a hamburger menü nyitva van
+    align-items: center;
+
+    width: 65%;
+    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    position: absolute;
+    top: 100px;
+    right: 0;
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0px 10px 6px rgba(200, 200, 200, 0.3);
   }
 `;
 
@@ -99,6 +106,7 @@ const LanguageSwitcher = styled.div`
 
   @media (max-width: 768px) {
     margin-top: 10px;
+    justify-content: center;
   }
 `;
 
@@ -144,11 +152,15 @@ const Navbar = ({ currentLanguage, switchLanguage }) => {
         <NavLink to="/contact">
           {currentLanguage === "hu" ? "Kapcsolat" : "Contact"}
         </NavLink>
+        <LanguageSwitcher>
+          <LanguageButton onClick={() => switchLanguage("hu")}>
+            HU
+          </LanguageButton>
+          <LanguageButton onClick={() => switchLanguage("en")}>
+            EN
+          </LanguageButton>
+        </LanguageSwitcher>
       </NavLinks>
-      <LanguageSwitcher>
-        <LanguageButton onClick={() => switchLanguage("hu")}>HU</LanguageButton>
-        <LanguageButton onClick={() => switchLanguage("en")}>EN</LanguageButton>
-      </LanguageSwitcher>
     </NavbarContainer>
   );
 };
