@@ -27,28 +27,40 @@ const HomeContainer = styled.div`
   background-color: #1a1a1a;
   color: #e0e0e0;
   width: 100vw;
-  height: calc(100vw * 9 / 16);  // 16:9 Verhältnis
+  height: calc(100vw * 9 / 16); // 16:9 Verhältnis
   padding: 0px 20px;
   box-sizing: border-box;
   overflow: visible;
   animation: ${fadeIn} 1.5s ease-in-out;
 
+  & h1 {
+    margin: 25px 10px;
+  }
+
   @media (max-width: 1024px) {
-    height: auto;  // Falls das Bildschirmverhältnis abweicht
+    height: auto; // Falls das Bildschirmverhältnis abweicht
   }
 `;
 
 // Akzentfarbe für Call-to-Action (mit responsiver Schriftgröße)
 const HighlightText = styled.span`
   color: #ff3333;
-  font-size: clamp(1.5em, 6vw, 3em); // Minimum: 1.5em, Dynamisch: 6vw, Maximum: 3em
+  font-size: clamp(
+    1.5em,
+    6vw,
+    3em
+  ); // Minimum: 1.5em, Dynamisch: 6vw, Maximum: 3em
   font-weight: bold;
   animation: ${glow} 2s infinite alternate;
 `;
 
 // InfoText Komponente für zusätzliche Infos (mit responsiver Schriftgröße)
 const InfoText = styled.p`
-  font-size: clamp(1em, 4vw, 1.5em); // Dynamische Schriftgröße zwischen 1em und 1.5em
+  font-size: clamp(
+    1em,
+    4vw,
+    1.5em
+  ); // Dynamische Schriftgröße zwischen 1em und 1.5em
   margin: 10px 0;
 `;
 
@@ -65,7 +77,11 @@ const QRCodeContainer = styled.div`
 
 // Kontaktinformationen (auch responsive)
 const ContactInfo = styled.div`
-  font-size: clamp(0.8em, 2.5vw, 1.2em); // Dynamische Schriftgröße für kleinere Infos
+  font-size: clamp(
+    0.8em,
+    2.5vw,
+    1.2em
+  ); // Dynamische Schriftgröße für kleinere Infos
   margin-top: 20px;
   color: #bfbfbf;
   display: flex;
@@ -85,7 +101,12 @@ const Logo = styled.img`
   width: 200px;
   height: auto;
   margin: 20px 0;
+  scale: 2.5;
+
   animation: ${bounce} 4s infinite alternate;
+  @media (min-width: 1024px) {
+    scale: 5;
+  }
 `;
 
 const Home = () => {

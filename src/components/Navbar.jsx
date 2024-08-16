@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 const NavbarContainer = styled.nav`
   background-color: #1a1a1a;
 
-  padding: 15px 20px;
+  padding: 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,6 +28,7 @@ const NavbarContainer = styled.nav`
   z-index: 1000;
   animation: ${fadeIn} 0.5s ease-in-out;
   box-shadow: 0 4px 8px 4px rgba(200, 200, 200, 0.3);
+
   @media (max-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -37,7 +38,15 @@ const NavbarContainer = styled.nav`
 const Logo = styled.img`
   height: auto;
   width: 100px;
+  scale: 2.8;
+  position: relative;
+  left: 30px;
+
   cursor: pointer;
+  @media (min-width: 768px) {
+    scale: 3.5;
+    left: 40px;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -48,7 +57,7 @@ const NavLinks = styled.div`
     flex-direction: column;
     align-items: center;
 
-    width: 65%;
+    width: 60%;
     display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
     position: absolute;
     top: 100px;

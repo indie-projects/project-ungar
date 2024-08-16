@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color:#1a1a1a;
   }
 
   main {
@@ -48,9 +49,14 @@ function App() {
           currentLanguage={currentLanguage}
           switchLanguage={switchLanguage}
         />
-        <main> {/* Wrapper für Hauptinhalt */}
+        <main>
+          {" "}
+          {/* Wrapper für Hauptinhalt */}
           <Routes>
-            <Route path="/" element={<Home currentLanguage={currentLanguage} />} />
+            <Route
+              path="/"
+              element={<Home currentLanguage={currentLanguage} />}
+            />
             <Route
               path="/products"
               element={<Products currentLanguage={currentLanguage} />}
