@@ -8,8 +8,11 @@ const fadeIn = keyframes`
 `;
 
 const bounce = keyframes`
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0% { top: 0; left: 0; }
+  25% { top: 0; left: calc(100% - 100px); }
+  50% { top: calc(100% - 100px); left: calc(100% - 100px); }
+  75% { top: calc(100% - 100px); left: 0; }
+  100% { top: 0; left: 0; }
 `;
 
 const glow = keyframes`
@@ -17,71 +20,62 @@ const glow = keyframes`
   100% { text-shadow: 0 0 20px #ff3333, 0 0 30px #ff3333, 0 0 40px #ff3333; }
 `;
 
-// Hauptcontainer für die Landing Page (16:9 Verhältnis)
+// Hauptcontainer für die Landing Page (vollbild ohne scrollen)
 const HomeContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Zentriert den Inhalt vertikal */
+  align-items: center; /* Zentriert den Inhalt horizontal */
   text-align: center;
   background-color: #1a1a1a;
   color: #e0e0e0;
-  width: 100vw;
-  height: calc(100vw * 9 / 16); // 16:9 Verhältnis
-  padding: 0px 20px;
-  box-sizing: border-box;
-  overflow: visible;
+  min-height: 100vh; /* Volle Höhe des Viewports */
   animation: ${fadeIn} 1.5s ease-in-out;
+
+  @media (max-width: 768px) {
+    padding: 10px; /* Weniger Padding auf mobilen Geräten */
+    min-height: calc(100vh - 50px); /* Höhe anpassen, um die Adressleiste zu berücksichtigen */
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px; /* Noch weniger Padding auf sehr kleinen Bildschirmen */
+    min-height: calc(100vh - 30px); /* Für sehr kleine Bildschirme noch mehr Anpassung */
+  }
+  
 
   & h1 {
     margin: 25px 10px;
   }
+`;
 
-  @media (max-width: 1024px) {
-    height: auto; // Falls das Bildschirmverhältnis abweicht
-  }
+// Animiertes Hintergrundlogo
+const BackgroundLogo = styled.img`
+  position: absolute;
+  width: 100px; /* Passe die Größe des Logos an */
+  height: auto;
+  animation: ${bounce} 5s infinite linear;
+  opacity: 0.15; /* Logo wird halbtransparent sein */
+  pointer-events: none; /* Verhindert, dass das Logo anklickbar ist */
 `;
 
 // Akzentfarbe für Call-to-Action (mit responsiver Schriftgröße)
 const HighlightText = styled.span`
   color: #ff3333;
-  font-size: clamp(
-    1.5em,
-    6vw,
-    3em
-  ); // Minimum: 1.5em, Dynamisch: 6vw, Maximum: 3em
+  font-size: clamp(1.5em, 6vw, 3em); // Minimum: 1.5em, Dynamisch: 6vw, Maximum: 3em
   font-weight: bold;
   animation: ${glow} 2s infinite alternate;
 `;
 
 // InfoText Komponente für zusätzliche Infos (mit responsiver Schriftgröße)
 const InfoText = styled.p`
-  font-size: clamp(
-    1em,
-    4vw,
-    1.5em
-  ); // Dynamische Schriftgröße zwischen 1em und 1.5em
+  font-size: clamp(1em, 4vw, 1.5em); // Dynamische Schriftgröße zwischen 1em und 1.5em
   margin: 10px 0;
-`;
-
-// QR-Code Container (kann Bild oder anderes sein)
-const QRCodeContainer = styled.div`
-  margin: 20px 0;
-  animation: ${bounce} 2s infinite;
-
-  img {
-    width: 150px;
-    height: 150px;
-  }
 `;
 
 // Kontaktinformationen (auch responsive)
 const ContactInfo = styled.div`
-  font-size: clamp(
-    0.8em,
-    2.5vw,
-    1.2em
-  ); // Dynamische Schriftgröße für kleinere Infos
+  font-size: clamp(0.8em, 2.5vw, 1.2em); // Dynamische Schriftgröße für kleinere Infos
   margin-top: 20px;
   color: #bfbfbf;
   display: flex;
@@ -96,26 +90,15 @@ const FooterText = styled.p`
   color: #666;
 `;
 
-// Logo Animation
-const Logo = styled.img`
-  width: 200px;
-  height: auto;
-  margin: 20px 0;
-  scale: 2.5;
-
-  animation: ${bounce} 4s infinite alternate;
-  @media (min-width: 1024px) {
-    scale: 5;
-  }
-`;
-
 const Home = () => {
   return (
     <HomeContainer>
+      {/* Das animierte Logo im Hintergrund */}
+      {/* <BackgroundLogo src="/logo_favicon.webp" alt="Bouncing Logo" /> */}
+
       <h1>
         HANGTECHNIKA <HighlightText>BÉRLÉS</HighlightText>
       </h1>
-      <Logo src="/logo_favicon.webp" alt="Firmenlogo" />
 
       <InfoText>
         BÁROK / KLUBOK / ESKÜVŐK

@@ -18,6 +18,7 @@ const fadeIn = keyframes`
 
 const NavbarContainer = styled.nav`
   background-color: #1a1a1a;
+  width: 100vw;
 
   padding: 10px 15px;
   display: flex;

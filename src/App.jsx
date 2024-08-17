@@ -14,25 +14,49 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  html, body, #root {
+    height: 100%; /* Stellt sicher, dass die Höhe des Bildschirms immer eingenommen wird */
+  }
+
   body {
     font-family: Arial, sans-serif;
-    min-height: 100vh; /* Körper auf volle Höhe setzen */
+    min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Ermöglicht Flexbox-Ausrichtung */
+    flex-direction: column;
     overflow-x: hidden;
+    background-color: #1a1a1a;
   }
 
   #root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color:#1a1a1a;
   }
 
   main {
-    flex-grow: 1; /* Der Hauptinhalt wächst, um den restlichen Platz auszufüllen */
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        overflow-y: auto; /* Ermöglicht Scrollen, wenn der Inhalt zu groß ist */
+    max-width: 100%; 
+  }
+
+  footer {
+    margin-top: auto;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding: 10px;
+      justify-content: flex-start;
+      align-items: flex-start;
+            flex-direction: column; /* Stellt sicher, dass der Inhalt bei kleineren Bildschirmen vertikal angeordnet wird */
+
+    }
   }
 `;
+
 
 function App() {
   const [currentLanguage, setCurrentLanguage] = useState("hu");
@@ -49,10 +73,8 @@ function App() {
           currentLanguage={currentLanguage}
           switchLanguage={switchLanguage}
         />
-        <main>
-          {" "}
-          {/* Wrapper für Hauptinhalt */}
-          <Routes>
+        <main style={{ flexGrow: 1, display: 'flex' }}>
+        <Routes>
             <Route
               path="/"
               element={<Home currentLanguage={currentLanguage} />}
