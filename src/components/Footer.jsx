@@ -15,11 +15,13 @@ const FooterContainer = styled.footer`
   padding: 20px 40px;
   font-size: 14px;
   z-index: 1000;
+  height: 80px;
 
   @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
+    // height; 1px;
   }
 `;
 

@@ -33,6 +33,7 @@ const NavbarContainer = styled.nav`
   @media (max-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
+    height: 5em;
   }
 `;
 
