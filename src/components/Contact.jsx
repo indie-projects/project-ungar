@@ -1,52 +1,73 @@
-import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
-import styled, { keyframes } from 'styled-components';
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
+import styled, { keyframes } from "styled-components";
 
 // Keyframes for animations
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
 `;
 
-const StyledContainer = styled.div`
+const glow = keyframes`
+  0% { text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333, 0 0 15px #ff3333; }
+  100% { text-shadow: 0 0 20px #ff3333, 0 0 30px #ff3333, 0 0 40px #ff3333; }
+`;
+
+// Hauptcontainer für das Kontaktformular
+const ContactContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #121212;
-  color: #fff;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
   animation: ${fadeIn} 1.5s ease-in-out;
-  padding: 20px; /* Ensures content is not too close to the screen edges */
+  padding: 20px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    min-height: calc(100vh - 50px);
+    display: flex;
+    align-items: flex-start; /* Vertikal zentrieren */
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    min-height: calc(100vh - 30px);
+  }
 `;
 
 const Form = styled.form`
-  background-color: #1e1e1e;
-  padding: 2.5rem; /* Adds consistent padding inside the form */
+  background-color: #2a2a2a;
+  padding: 2rem;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
   width: 100%;
-  max-width: 600px;
+  // max-width: 100px;
+  max-height: 500px; /* Mindesthöhe für das Formular */
+
   animation: ${fadeIn} 2s ease-in-out;
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Ensure the input fields stretch evenly */
+  align-items: center; /* Zentriere den Inhalt im Formular */
+  justify-content: center; /* Stelle sicher, dass der Inhalt auch vertikal zentriert ist */
 
   @media (max-width: 768px) {
     padding: 1.5rem;
   }
 
   h2 {
-    margin-bottom: 2rem;
-    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #ff3333;
+    font-size: clamp(1.5em, 5vw, 2.5em);
+    font-weight: bold;
+    animation: ${glow} 2s infinite alternate;
   }
 `;
 
 const InputGroup = styled.div`
-  margin-bottom: 1.5rem; /* Provides spacing between form fields */
+  margin-bottom: 1.5rem;
 
   label {
     display: block;
@@ -56,17 +77,17 @@ const InputGroup = styled.div`
 
   input,
   textarea {
-    width: 100%; /* Make inputs take the full width */
+    width: 100%;
     padding: 0.75rem;
     border: 1px solid #444;
     border-radius: 4px;
-    background-color: #2a2a2a;
+    background-color: #1e1e1e;
     color: #fff;
     transition: border-color 0.3s;
-    box-sizing: border-box; /* Ensures padding is included in the width */
+    box-sizing: border-box;
 
     &:focus {
-      border-color: #1db954;
+      border-color: #ff3333;
       outline: none;
     }
   }
@@ -77,7 +98,7 @@ const InputGroup = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: #1db954;
+  background-color: #ff3333;
   color: #fff;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -88,27 +109,27 @@ const Button = styled.button`
   margin-top: 1rem;
 
   &:hover {
-    background-color: #17a547;
+    background-color: #cc2929;
   }
 
   width: 100%;
-  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  box-sizing: border-box;
 `;
 
 const StatusMessage = styled.p`
   margin-top: 1.5rem;
   font-size: 1rem;
-  color: ${(props) => (props.error ? '#ff5252' : '#1db954')};
+  color: ${(props) => (props.error ? "#ff5252" : "#1db954")};
   text-align: center;
 `;
 
 function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,17 +152,17 @@ function Contact() {
       .then(
         (result) => {
           console.log(result.text);
-          setStatus('Email sent successfully!');
+          setStatus("Email sent successfully!");
         },
         (error) => {
           console.log(error.text);
-          setStatus('Failed to send email.');
+          setStatus("Failed to send email.");
         }
       );
   };
 
   return (
-    <StyledContainer>
+    <ContactContainer>
       <Form onSubmit={handleSubmit}>
         <h2>Contact Me</h2>
         <InputGroup>
@@ -174,9 +195,13 @@ function Contact() {
           ></textarea>
         </InputGroup>
         <Button type="submit">Send</Button>
-        {status && <StatusMessage error={status.includes('Failed')}>{status}</StatusMessage>}
+        {status && (
+          <StatusMessage error={status.includes("Failed")}>
+            {status}
+          </StatusMessage>
+        )}
       </Form>
-    </StyledContainer>
+    </ContactContainer>
   );
 }
 
