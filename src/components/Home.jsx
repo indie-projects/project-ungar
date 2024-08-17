@@ -25,26 +25,27 @@ const HomeContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Zentriert den Inhalt vertikal auf größeren Bildschirmen */
-  align-items: center; /* Zentriert den Inhalt horizontal */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background-color: #1a1a1a;
   color: #e0e0e0;
-  min-height: 100vh; /* Volle Höhe des Viewports */
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   animation: ${fadeIn} 1.5s ease-in-out;
+  overflow: hidden;
+  margin: 0; /* Verhindert unerwünschte Abstände */
 
   @media (max-width: 768px) {
-    padding: 10px; /* Weniger Padding auf mobilen Geräten */
-    min-height: calc(100vh - 50px); /* Höhe anpassen, um die Adressleiste zu berücksichtigen */
-    justify-content: flex-start; /* Kein vertikales Zentrieren auf mobilen Geräten */
-    /* Optional: Hinzufügen von margin oder padding zur besseren Platzierung auf mobilen Geräten */
-    margin-top: 20px; /* Beispiel für zusätzlichen Abstand oben */
+    padding: 10px;
+    justify-content: flex-start;
+    margin-top: 20px;
   }
 
   @media (max-width: 480px) {
-    padding: 5px; /* Noch weniger Padding auf sehr kleinen Bildschirmen */
-    min-height: calc(100vh - 30px); /* Für sehr kleine Bildschirme noch mehr Anpassung */
-    margin-top: 10px; /* Beispiel für weiteren Abstand oben auf sehr kleinen Bildschirmen */
+    padding: 5px;
+    margin-top: 10px;
   }
 
   & h1 {
@@ -55,30 +56,30 @@ const HomeContainer = styled.div`
 // Animiertes Hintergrundlogo
 const BackgroundLogo = styled.img`
   position: absolute;
-  width: 100px; /* Passe die Größe des Logos an */
+  width: 100px;
   height: auto;
   animation: ${bounce} 5s infinite linear;
-  opacity: 0.15; /* Logo wird halbtransparent sein */
-  pointer-events: none; /* Verhindert, dass das Logo anklickbar ist */
+  opacity: 0.15;
+  pointer-events: none;
 `;
 
 // Akzentfarbe für Call-to-Action (mit responsiver Schriftgröße)
 const HighlightText = styled.span`
   color: #ff3333;
-  font-size: clamp(1.5em, 6vw, 3em); // Minimum: 1.5em, Dynamisch: 6vw, Maximum: 3em
+  font-size: clamp(1.5em, 6vw, 3em);
   font-weight: bold;
   animation: ${glow} 2s infinite alternate;
 `;
 
 // InfoText Komponente für zusätzliche Infos (mit responsiver Schriftgröße)
 const InfoText = styled.p`
-  font-size: clamp(1em, 4vw, 1.5em); // Dynamische Schriftgröße zwischen 1em und 1.5em
+  font-size: clamp(1em, 4vw, 1.5em);
   margin: 10px 0;
 `;
 
 // Kontaktinformationen (auch responsive)
 const ContactInfo = styled.div`
-  font-size: clamp(0.8em, 2.5vw, 1.2em); // Dynamische Schriftgröße für kleinere Infos
+  font-size: clamp(0.8em, 2.5vw, 1.2em);
   margin-top: 20px;
   color: #bfbfbf;
   display: flex;
@@ -88,7 +89,7 @@ const ContactInfo = styled.div`
 
 // Footer-Text (auch responsiv)
 const FooterText = styled.p`
-  font-size: clamp(0.8em, 1.5vw, 1em); // Dynamisch zwischen 0.8em und 1em
+  font-size: clamp(0.8em, 1.5vw, 1em);
   margin-top: 10px;
   color: #666;
 `;

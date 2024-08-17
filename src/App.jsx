@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    // overflow: hidden;
     background-color: #1a1a1a;
   }
 
@@ -57,7 +57,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-
 function App() {
   const [currentLanguage, setCurrentLanguage] = useState("hu");
 
@@ -73,8 +72,8 @@ function App() {
           currentLanguage={currentLanguage}
           switchLanguage={switchLanguage}
         />
-        <main style={{ flexGrow: 1, display: 'flex' }}>
-        <Routes>
+        <main style={{ flexGrow: 1, display: "flex" }}>
+          <Routes>
             <Route
               path="/"
               element={<Home currentLanguage={currentLanguage} />}

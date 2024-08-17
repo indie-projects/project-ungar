@@ -48,6 +48,8 @@ const Logo = styled.img`
   @media (min-width: 768px) {
     scale: 3.5;
     left: 40px;
+      pointer-events: none;
+
   }
 `;
 

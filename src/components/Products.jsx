@@ -5,6 +5,7 @@ import styled, { keyframes, createGlobalStyle } from "styled-components";
 const GlobalProductsStyle = createGlobalStyle`
   body {
     overflow: visible; /* Ermöglicht das Scrollen bei Bedarf */
+    
   }
 `;
 
@@ -26,6 +27,7 @@ const ProductsContainer = styled.div`
   color: #e0e0e0;
   animation: ${fadeIn} 1s ease-in-out;
   margin-bottom: 2rem;
+  margin-top: auto;
 `;
 
 const ProductCard = styled.div`

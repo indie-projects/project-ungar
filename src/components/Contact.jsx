@@ -23,6 +23,7 @@ const ContactContainer = styled.div`
   animation: ${fadeIn} 1.5s ease-in-out;
   padding: 20px;
   text-align: center;
+  
 
   @media (max-width: 768px) {
     padding: 15px;
