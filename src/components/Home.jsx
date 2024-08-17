@@ -25,7 +25,7 @@ const HomeContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Zentriert den Inhalt vertikal */
+  justify-content: center; /* Zentriert den Inhalt vertikal auf größeren Bildschirmen */
   align-items: center; /* Zentriert den Inhalt horizontal */
   text-align: center;
   background-color: #1a1a1a;
@@ -36,13 +36,16 @@ const HomeContainer = styled.div`
   @media (max-width: 768px) {
     padding: 10px; /* Weniger Padding auf mobilen Geräten */
     min-height: calc(100vh - 50px); /* Höhe anpassen, um die Adressleiste zu berücksichtigen */
+    justify-content: flex-start; /* Kein vertikales Zentrieren auf mobilen Geräten */
+    /* Optional: Hinzufügen von margin oder padding zur besseren Platzierung auf mobilen Geräten */
+    margin-top: 20px; /* Beispiel für zusätzlichen Abstand oben */
   }
 
   @media (max-width: 480px) {
-    padding: 10px; /* Noch weniger Padding auf sehr kleinen Bildschirmen */
+    padding: 5px; /* Noch weniger Padding auf sehr kleinen Bildschirmen */
     min-height: calc(100vh - 30px); /* Für sehr kleine Bildschirme noch mehr Anpassung */
+    margin-top: 10px; /* Beispiel für weiteren Abstand oben auf sehr kleinen Bildschirmen */
   }
-  
 
   & h1 {
     margin: 25px 10px;
