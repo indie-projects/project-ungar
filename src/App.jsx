@@ -6,6 +6,8 @@ import Products from "./components/Products";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer"; // Importiere den Footer
+import { CartProvider } from "./CartProvider";
+import Cart from "./components/Cart";   
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -43,32 +45,36 @@ function App() {
 
   return (
     <>
-      <GlobalStyle /> {/* Fügt die globalen Stile hinzu */}
-      <Router>
-        <Navbar
-          currentLanguage={currentLanguage}
-          switchLanguage={switchLanguage}
-        />
-        <main>
-          {" "}
-          {/* Wrapper für Hauptinhalt */}
-          <Routes>
-            <Route
-              path="/"
-              element={<Home currentLanguage={currentLanguage} />}
-            />
-            <Route
-              path="/products"
-              element={<Products currentLanguage={currentLanguage} />}
-            />
-            <Route
-              path="/contact"
-              element={<Contact currentLanguage={currentLanguage} />}
-            />
-          </Routes>
-        </main>
-        <Footer /> {/* Footer wird hier hinzugefügt */}
-      </Router>
+      <GlobalStyle />
+      <CartProvider>
+        <Router>
+          <Navbar
+            currentLanguage={currentLanguage}
+            switchLanguage={switchLanguage}
+          />
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home currentLanguage={currentLanguage} />}
+              />
+              <Route
+                path="/products"
+                element={<Products currentLanguage={currentLanguage} />}
+              />
+              <Route
+                path="/contact"
+                element={<Contact currentLanguage={currentLanguage} />}
+              />
+              <Route
+                path="/cart"
+                element={<Cart currentLanguage={currentLanguage} />}
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </Router>
+      </CartProvider>
     </>
   );
 }

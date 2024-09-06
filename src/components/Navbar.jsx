@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
-import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../assets/IMG_0106.png";
+import CartContext from '../CartContext';
+import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
 
-// Keyframes für sanftes Einblenden des Navbars
+// Keyframes for sanftes Einblenden des Navbars
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -18,7 +19,6 @@ const fadeIn = keyframes`
 
 const NavbarContainer = styled.nav`
   background-color: #1a1a1a;
-
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
@@ -41,8 +41,8 @@ const Logo = styled.img`
   scale: 2.8;
   position: relative;
   left: 30px;
-
   cursor: pointer;
+  
   @media (min-width: 768px) {
     scale: 3.5;
     left: 40px;
@@ -56,9 +56,8 @@ const NavLinks = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-
     width: 60%;
-    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
+    display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
     position: absolute;
     top: 100px;
     right: 0;
@@ -136,8 +135,23 @@ const LanguageButton = styled.button`
   }
 `;
 
+const CartLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+`;
+
+const CartItemCount = styled.span`
+  background-color: #ff9f43;
+  color: #1a1a1a;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8em;
+  margin-left: 5px;
+`;
+
 const Navbar = ({ currentLanguage, switchLanguage }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItemCount } = useContext(CartContext);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -151,7 +165,7 @@ const Navbar = ({ currentLanguage, switchLanguage }) => {
       <HamburgerMenu onClick={toggleMenu}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </HamburgerMenu>
-      <NavLinks isOpen={menuOpen}>
+      <NavLinks $isOpen={menuOpen}>
         <NavLink to="/">
           {currentLanguage === "hu" ? "Főoldal" : "Home"}
         </NavLink>
@@ -161,6 +175,11 @@ const Navbar = ({ currentLanguage, switchLanguage }) => {
         <NavLink to="/contact">
           {currentLanguage === "hu" ? "Kapcsolat" : "Contact"}
         </NavLink>
+        <CartLink to="/cart">
+          <FaShoppingCart />
+          {currentLanguage === "hu" ? "Kosár" : "Cart"}
+          {cartItemCount > 0 && <CartItemCount>{cartItemCount}</CartItemCount>}
+        </CartLink>
         <LanguageSwitcher>
           <LanguageButton onClick={() => switchLanguage("hu")}>
             HU

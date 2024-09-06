@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
+import CartContext from '../CartContext';
 
 // Globale Stile für die Produkte-Komponente
 const GlobalProductsStyle = createGlobalStyle`
@@ -39,8 +40,8 @@ const ProductCard = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: center; /* Horizontale Zentrierung */
-  text-align: center; /* Textzentrierung */
+  align-items: center;
+  text-align: center;
 
   &:hover {
     transform: scale(1.03);
@@ -58,19 +59,19 @@ const ProductCard = styled.div`
 
 const ProductImageContainer = styled.div`
   width: 100%;
-  height: 200px; /* Feste Höhe für einheitliche Bildgrößen */
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Verhindert, dass das Bild den Container überschreitet */
-  background-color: #333; /* Hintergrundfarbe, um Bild sichtbar zu machen */
+  overflow: hidden;
+  background-color: #333;
   border-bottom: 1px solid #444;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Bild proportional skalieren, um das gesamte Bild anzuzeigen */
+  object-fit: contain;
 `;
 
 const ProductDetails = styled.div`
@@ -109,7 +110,7 @@ const SpecificationsList = styled.ul`
 `;
 
 const SpecificationItem = styled.li`
-  margin-bottom: 10px; /* Größerer Abstand zwischen den Zeilen */
+  margin-bottom: 10px;
   font-size: 0.9em;
 
   strong {
@@ -129,10 +130,30 @@ const ErrorMessage = styled.div`
   padding: 20px;
 `;
 
-const Products = ({ currentLanguage }) => {
+const AddToCartButton = styled.button`
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+function Products({ currentLanguage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     fetch("/output.json")
@@ -163,7 +184,7 @@ const Products = ({ currentLanguage }) => {
 
   return (
     <>
-      <GlobalProductsStyle /> {/* Füge die globalen Styles nur in dieser Komponente hinzu */}
+      <GlobalProductsStyle />
       <ProductsContainer>
         {products.map((product) => {
           const productText = product.content.text[currentLanguage];
@@ -172,37 +193,34 @@ const Products = ({ currentLanguage }) => {
             return null;
           }
 
+          const handleAddToCart = () => {
+            addToCart({
+              id: product.filename,
+              name: productText.model,
+              price: parseFloat(productText.price.replace(/[^0-9.-]+/g,"")),
+              image: product.content.images[0].url
+            });
+          };
+
           return (
             <ProductCard key={product.filename}>
               <ProductImageContainer>
-                {product.content.images.length > 0 && (
-                  <ProductImage
-                    src={product.content.images[0].url}
-                    alt={product.filename}
-                  />
-                )}
+                <ProductImage src={product.content.images[0].url} alt={productText.model} />
               </ProductImageContainer>
               <ProductDetails>
                 <ProductTitle>{productText.model}</ProductTitle>
                 <ProductDescription>{productText.description}</ProductDescription>
-                <ProductPrice>
-                  <strong>{currentLanguage === "hu" ? "Ár:" : "Price:"}</strong>{" "}
-                  {productText.price}
-                </ProductPrice>
+                <ProductPrice>{productText.price}</ProductPrice>
                 <SpecificationsList>
-                  <SpecificationItem>
-                    <strong>
-                      {currentLanguage === "hu" ? "Méretek:" : "Dimensions:"}
-                    </strong>{" "}
-                    {productText.specifications.dimensions}
-                  </SpecificationItem>
-                  <SpecificationItem>
-                    <strong>
-                      {currentLanguage === "hu" ? "Súly:" : "Weight:"}
-                    </strong>{" "}
-                    {productText.specifications.weight}
-                  </SpecificationItem>
+                  {Object.entries(productText.specifications).map(([key, value]) => (
+                    <SpecificationItem key={key}>
+                      <strong>{key}:</strong> {value}
+                    </SpecificationItem>
+                  ))}
                 </SpecificationsList>
+                <AddToCartButton onClick={handleAddToCart}>
+                  {currentLanguage === "hu" ? "Kosárba" : "Add to Cart"}
+                </AddToCartButton>
               </ProductDetails>
             </ProductCard>
           );
@@ -210,6 +228,6 @@ const Products = ({ currentLanguage }) => {
       </ProductsContainer>
     </>
   );
-};
+}
 
 export default Products;
