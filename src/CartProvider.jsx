@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import CartContext from './CartContext';
+import { calculateDaysDifference } from '../src/components/calculateDaysDifference';
+
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
@@ -69,7 +71,10 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const cartTotal = useMemo(() => 
-    cart.reduce((total, item) => total + item.price * item.quantity, 0),
+    cart.reduce((total, item) => {
+      const days = calculateDaysDifference(item.startDate, item.endDate);
+      return total + item.price * days * item.quantity;
+    }, 0),
     [cart]
   );
 

@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import CartContext from '../CartContext';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { calculateDaysDifference } from './calculateDaysDifference';
+
 
 const CartContainer = styled.div`
   max-width: 800px;
@@ -320,6 +322,11 @@ const Cart = ({ currentLanguage }) => {
     return item.price * days * item.quantity;
   };
 
+  const calculateCartTotal = () => {
+    return cart.reduce((total, item) => total + calculateSubtotal(item), 0);
+  };
+
+
   if (cart.length === 0) {
     return (
       <CartContainer>
@@ -327,6 +334,9 @@ const Cart = ({ currentLanguage }) => {
         <EmptyCartMessage>
           {currentLanguage === 'hu' ? 'A kosár üres' : 'Your cart is empty'}
         </EmptyCartMessage>
+        <TotalPrice>
+        {currentLanguage === 'hu' ? 'Összesen:' : 'Total:'} {calculateCartTotal().toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
+      </TotalPrice>
       </CartContainer>
     );
   }
