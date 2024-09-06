@@ -37,14 +37,29 @@ const GlobalStyle = createGlobalStyle`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding-bottom: 60px; /* Anpassen an die Höhe Ihres Footers */
+    padding-bottom: 60px;
   }
+`;
+
+const BackgroundImage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/path/to/your/background-image.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  z-index: -1;
 `;
 
 const ContentWrapper = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 `;
 
 function App() {
@@ -57,6 +72,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <BackgroundImage />
       <CartProvider>
         <Router>
           <ContentWrapper>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import logo from "../assets/IMG_0106.png";
 import CartContext from '../CartContext';
-import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
+import { FaBars, FaTimes, FaShoppingCart, FaHome, FaBoxOpen, FaEnvelope } from "react-icons/fa";
 
 // Keyframes for sanftes Einblenden des Navbars
 const fadeIn = keyframes`
@@ -73,6 +73,9 @@ const NavLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2em;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 
   &:hover {
     color: #ff9f43;
@@ -149,6 +152,8 @@ const CartItemCount = styled.span`
   margin-left: 5px;
 `;
 
+
+
 const Navbar = ({ currentLanguage, switchLanguage }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartItemCount } = useContext(CartContext);
@@ -167,12 +172,15 @@ const Navbar = ({ currentLanguage, switchLanguage }) => {
       </HamburgerMenu>
       <NavLinks $isOpen={menuOpen}>
         <NavLink to="/">
+          <FaHome />
           {currentLanguage === "hu" ? "Főoldal" : "Home"}
         </NavLink>
         <NavLink to="/products">
+          <FaBoxOpen />
           {currentLanguage === "hu" ? "Termékek" : "Products"}
         </NavLink>
         <NavLink to="/contact">
+          <FaEnvelope />
           {currentLanguage === "hu" ? "Kapcsolat" : "Contact"}
         </NavLink>
         <CartLink to="/cart">
