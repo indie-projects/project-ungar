@@ -77,16 +77,26 @@ export const CartProvider = ({ children }) => {
     cart.reduce((total, item) => total + item.quantity, 0),
     [cart]
   );
+  const updateDateRange = useCallback((productId, startDate, endDate) => {
+    setCart(prevCart =>
+      prevCart.map(item =>
+        item.id === productId
+          ? { ...item, startDate, endDate }
+          : item
+      )
+    );
+  }, []);
 
   const contextValue = useMemo(() => ({
     cart,
     addToCart,
     removeFromCart,
     updateQuantity,
+    updateDateRange,
     clearCart,
     cartTotal,
     cartItemCount
-  }), [cart, addToCart, removeFromCart, updateQuantity, clearCart, cartTotal, cartItemCount]);
+  }), [cart, addToCart, removeFromCart, updateQuantity, updateDateRange, clearCart, cartTotal, cartItemCount]);
 
   return (
     <CartContext.Provider value={contextValue}>

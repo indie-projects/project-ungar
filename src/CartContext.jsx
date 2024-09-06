@@ -1,4 +1,3 @@
-// CartContext.jsx
 import { createContext } from 'react';
 
 const CartContext = createContext({
@@ -6,6 +5,7 @@ const CartContext = createContext({
   addToCart: () => {},
   removeFromCart: () => {},
   updateQuantity: () => {},
+  updateDateRange: () => {},
   clearCart: () => {},
   cartTotal: 0,
   cartItemCount: 0,
