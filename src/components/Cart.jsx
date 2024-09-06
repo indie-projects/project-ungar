@@ -214,7 +214,7 @@ const SubtotalInfo = styled.div`
 `;
 
 const Cart = ({ currentLanguage }) => {
-  const { cart, removeFromCart, updateQuantity, updateDateRange, cartTotal } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity, updateDateRange, cartTotal, clearCart } = useContext(CartContext);
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
     lastName: '',
@@ -238,12 +238,6 @@ const Cart = ({ currentLanguage }) => {
     }));
   };
 
-  const calculateDaysDifference = (startDate, endDate) => {
-    if (!startDate || !endDate) return 0;
-    const difference = endDate.getTime() - startDate.getTime();
-    return Math.ceil(difference / (1000 * 3600 * 24)) + 1; // +1 because we count both the start and end day
-  };
-
   const handleDateChange = (itemId, field, date) => {
     const item = cart.find(i => i.id === itemId);
     let startDate = field === 'startDate' ? date : item.startDate;
@@ -255,7 +249,9 @@ const Cart = ({ currentLanguage }) => {
       } else {
         startDate = null;
       }
-      toast.warn(currentLanguage === 'hu' ? 'A kezdő dátum nem lehet későbbi, mint a befejező dátum' : 'Start date cannot be later than end date');
+      toast.warn(currentLanguage === 'hu' ? 'A kezdő dátum nem lehet későbbi, mint a befejező dátum' : 'Start date cannot be later than end date', {
+        toastId: 'date-range-error'
+      });
     }
 
     updateDateRange(itemId, startDate, endDate);
@@ -270,7 +266,9 @@ const Cart = ({ currentLanguage }) => {
     // In a real application, this would make an API call to the backend
     const isAvailable = Math.random() > 0.2; // 80% chance of being available
     if (!isAvailable) {
-      toast.error(currentLanguage === 'hu' ? 'A kiválasztott időszak nem elérhető' : 'The selected period is not available');
+      toast.error(currentLanguage === 'hu' ? 'A kiválasztott időszak nem elérhető' : 'The selected period is not available', {
+        toastId: `availability-${itemId}`
+      });
     }
     return isAvailable;
   };
@@ -290,6 +288,8 @@ const Cart = ({ currentLanguage }) => {
     }
     if (!customerInfo.phone.trim()) {
       errors.phone = currentLanguage === 'hu' ? 'Telefonszám megadása kötelező' : 'Phone number is required';
+    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(customerInfo.phone)) {
+      errors.phone = currentLanguage === 'hu' ? 'Érvénytelen telefonszám' : 'Invalid phone number'; 
     }
     return errors;
   };
@@ -305,9 +305,8 @@ const Cart = ({ currentLanguage }) => {
     // Here you would typically send the order to your backend
     console.log('Submitting order:', { cart, customerInfo });
     toast.success(currentLanguage === 'hu' ? 'Rendelés sikeresen elküldve!' : 'Order successfully submitted!');
-    // Reset cart and form after successful submission
-    // This would typically be handled by your CartContext
-    // clearCart();
+    // Reset cart and form after successful submission  
+    clearCart();
     setCustomerInfo({
       firstName: '',
       lastName: '',
@@ -322,11 +321,6 @@ const Cart = ({ currentLanguage }) => {
     return item.price * days * item.quantity;
   };
 
-  const calculateCartTotal = () => {
-    return cart.reduce((total, item) => total + calculateSubtotal(item), 0);
-  };
-
-
   if (cart.length === 0) {
     return (
       <CartContainer>
@@ -335,7 +329,7 @@ const Cart = ({ currentLanguage }) => {
           {currentLanguage === 'hu' ? 'A kosár üres' : 'Your cart is empty'}
         </EmptyCartMessage>
         <TotalPrice>
-        {currentLanguage === 'hu' ? 'Összesen:' : 'Total:'} {calculateCartTotal().toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
+        {currentLanguage === 'hu' ? 'Összesen:' : 'Total:'} {cartTotal.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
       </TotalPrice>
       </CartContainer>
     );
@@ -350,7 +344,7 @@ const Cart = ({ currentLanguage }) => {
           <ItemDetails>
             <ItemName>{item.name}</ItemName>
             <ItemPrice>
-              {item.price} {currentLanguage === 'hu' ? 'Ft' : '€'} / day
+              {item.price.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'} / {currentLanguage === 'hu' ? 'nap' : 'day'}
             </ItemPrice>
             <DatePickerWrapper>
               <DatePickerLabel>
@@ -366,6 +360,8 @@ const Cart = ({ currentLanguage }) => {
                   minDate={new Date()}
                   placeholderText={currentLanguage === 'hu' ? 'Kezdő dátum' : 'Start Date'}
                   dateFormat="yyyy-MM-dd"
+                  required
+                  aria-label={currentLanguage === 'hu' ? 'Kezdő dátum' : 'Start Date'}
                 />
                 <DatePicker
                   selected={item.endDate}
@@ -376,6 +372,8 @@ const Cart = ({ currentLanguage }) => {
                   minDate={item.startDate || new Date()}
                   placeholderText={currentLanguage === 'hu' ? 'Befejező dátum' : 'End Date'}
                   dateFormat="yyyy-MM-dd"
+                  required  
+                  aria-label={currentLanguage === 'hu' ? 'Befejező dátum' : 'End Date'}
                 />
               </DatePickerContainer>
             </DatePickerWrapper>
@@ -393,9 +391,16 @@ const Cart = ({ currentLanguage }) => {
             </SubtotalInfo>
           </ItemDetails>
           <QuantityControl>
-            <QuantityButton onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</QuantityButton>
+            <QuantityButton 
+              onClick={() => updateQuantity(item.id, item.quantity - 1)} 
+              disabled={item.quantity <= 1}
+              aria-label={currentLanguage === 'hu' ? 'Mennyiség csökkentése' : 'Decrease quantity'}  
+            >-</QuantityButton>
             <span>{item.quantity}</span>
-            <QuantityButton onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</QuantityButton>
+            <QuantityButton 
+              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+              aria-label={currentLanguage === 'hu' ? 'Mennyiség növelése' : 'Increase quantity'}
+            >+</QuantityButton>
           </QuantityControl>
           <RemoveButton onClick={() => removeFromCart(item.id)}>
             {currentLanguage === 'hu' ? 'Törlés' : 'Remove'}
@@ -403,41 +408,53 @@ const Cart = ({ currentLanguage }) => {
         </CartItem>
       ))}
       <TotalPrice>
-        {currentLanguage === 'hu' ? 'Összesen:' : 'Total:'} {cartTotal.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
+        {currentLanguage === 'hu' ? 'Végösszeg:' : 'Total:'} {cartTotal.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
       </TotalPrice>
       <CustomerForm onSubmit={handleSubmit}>
         <FormInput
           type="text"
           name="firstName"
-          placeholder={currentLanguage === 'hu' ? 'Keresztnév' : 'First Name'}
+          placeholder={currentLanguage === 'hu' ? 'Keresztnév*' : 'First Name*'}
           value={customerInfo.firstName}
           onChange={handleInputChange}
+          required
+          aria-invalid={formErrors.firstName ? 'true' : 'false'}
+          aria-describedby="firstNameError"
         />
-        {formErrors.firstName && <ErrorMessage>{formErrors.firstName}</ErrorMessage>}
+        {formErrors.firstName && <ErrorMessage id="firstNameError">{formErrors.firstName}</ErrorMessage>}
         <FormInput
           type="text"
           name="lastName"
-          placeholder={currentLanguage === 'hu' ? 'Vezetéknév' : 'Last Name'}
+          placeholder={currentLanguage === 'hu' ? 'Vezetéknév*' : 'Last Name*'}  
           value={customerInfo.lastName}
           onChange={handleInputChange}
+          required
+          aria-invalid={formErrors.lastName ? 'true' : 'false'} 
+          aria-describedby="lastNameError"
         />
-        {formErrors.lastName && <ErrorMessage>{formErrors.lastName}</ErrorMessage>}
+        {formErrors.lastName && <ErrorMessage id="lastNameError">{formErrors.lastName}</ErrorMessage>}
         <FormInput
           type="email"
           name="email"
-          pplaceholder={currentLanguage === 'hu' ? 'E-mail cím' : 'Email'}
+          placeholder={currentLanguage === 'hu' ? 'E-mail cím*' : 'Email*'}
           value={customerInfo.email}
           onChange={handleInputChange}
+          required
+          aria-invalid={formErrors.email ? 'true' : 'false'}
+          aria-describedby="emailError"  
         />
-        {formErrors.email && <ErrorMessage>{formErrors.email}</ErrorMessage>}
+        {formErrors.email && <ErrorMessage id="emailError">{formErrors.email}</ErrorMessage>}
         <FormInput
           type="tel"
           name="phone"
-          placeholder={currentLanguage === 'hu' ? 'Telefonszám' : 'Phone Number'}
+          placeholder={currentLanguage === 'hu' ? 'Telefonszám*' : 'Phone Number*'}
           value={customerInfo.phone}
           onChange={handleInputChange}
+          required
+          aria-invalid={formErrors.phone ? 'true' : 'false'}
+          aria-describedby="phoneError"
         />
-        {formErrors.phone && <ErrorMessage>{formErrors.phone}</ErrorMessage>}
+        {formErrors.phone && <ErrorMessage id="phoneError">{formErrors.phone}</ErrorMessage>}
         <SubmitButton type="submit" disabled={isSubmitting}>
           {isSubmitting
             ? (currentLanguage === 'hu' ? 'Feldolgozás...' : 'Processing...')
@@ -448,4 +465,4 @@ const Cart = ({ currentLanguage }) => {
   );
 };
 
-export default Cart;  
+export default Cart;
