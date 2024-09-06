@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import styled, { keyframes, css } from "styled-components";
 import logo from "../assets/IMG_0106.png";
 import CartContext from '../CartContext';
 import { FaBars, FaTimes, FaShoppingCart, FaHome, FaBoxOpen, FaEnvelope } from "react-icons/fa";
@@ -38,13 +38,13 @@ const NavbarContainer = styled.nav`
 const Logo = styled.img`
   height: auto;
   width: 100px;
-  scale: 2.8;
+  transform: scale(2.8);
   position: relative;
   left: 30px;
   cursor: pointer;
   
   @media (min-width: 768px) {
-    scale: 3.5;
+    transform: scale(3.5);
     left: 40px;
   }
 `;
@@ -68,7 +68,7 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLinkStyled = styled(NavLink)`
   color: #f0f0f0;
   text-decoration: none;
   font-size: 1.2em;
@@ -98,6 +98,14 @@ const NavLink = styled(Link)`
     visibility: visible;
     width: 100%;
   }
+
+  ${props => props.$isActive && css`
+    color: #ff9f43;
+    &:before {
+      visibility: visible;
+      width: 100%;
+    }
+  `}
 `;
 
 const HamburgerMenu = styled.div`
@@ -138,11 +146,6 @@ const LanguageButton = styled.button`
   }
 `;
 
-const CartLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-`;
-
 const CartItemCount = styled.span`
   background-color: #ff9f43;
   color: #1a1a1a;
@@ -152,42 +155,43 @@ const CartItemCount = styled.span`
   margin-left: 5px;
 `;
 
-
-
 const Navbar = ({ currentLanguage, switchLanguage }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartItemCount } = useContext(CartContext);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <NavbarContainer>
-      <NavLink to="/">
+      <NavLinkStyled to="/">
         <Logo src={logo} alt="Logo" />
-      </NavLink>
+      </NavLinkStyled>
       <HamburgerMenu onClick={toggleMenu}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </HamburgerMenu>
       <NavLinks $isOpen={menuOpen}>
-        <NavLink to="/">
+        <NavLinkStyled to="/" $isActive={isActive("/")}>
           <FaHome />
           {currentLanguage === "hu" ? "Főoldal" : "Home"}
-        </NavLink>
-        <NavLink to="/products">
+        </NavLinkStyled>
+        <NavLinkStyled to="/products" $isActive={isActive("/products")}>
           <FaBoxOpen />
           {currentLanguage === "hu" ? "Termékek" : "Products"}
-        </NavLink>
-        <NavLink to="/contact">
+        </NavLinkStyled>
+        <NavLinkStyled to="/contact" $isActive={isActive("/contact")}>
           <FaEnvelope />
           {currentLanguage === "hu" ? "Kapcsolat" : "Contact"}
-        </NavLink>
-        <CartLink to="/cart">
+        </NavLinkStyled>
+        <NavLinkStyled to="/cart" $isActive={isActive("/cart")}>
           <FaShoppingCart />
           {currentLanguage === "hu" ? "Kosár" : "Cart"}
           {cartItemCount > 0 && <CartItemCount>{cartItemCount}</CartItemCount>}
-        </CartLink>
+        </NavLinkStyled>
         <LanguageSwitcher>
           <LanguageButton onClick={() => switchLanguage("hu")}>
             HU
