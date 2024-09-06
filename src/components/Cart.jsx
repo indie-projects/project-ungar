@@ -249,6 +249,41 @@ const NextButton = styled(SubmitButton)`
   margin-top: 20px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+const StyledButton = styled.button`
+  background-color: #1db954;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #1ed760;
+  }
+
+  &:disabled {
+    background-color: #165c2e;
+    cursor: not-allowed;
+  }
+`;
+
+const BackButton = styled(StyledButton)`
+  background-color: #333;
+
+  &:hover {
+    background-color: #444;
+  }
+`;
+
+
 const Cart = ({ currentLanguage }) => {
   const { cart, removeFromCart, updateQuantity, updateDateRange, cartTotal, clearCart } = useContext(CartContext);
   const [currentStep, setCurrentStep] = useState(1);
@@ -560,25 +595,25 @@ const Cart = ({ currentLanguage }) => {
       
       {renderStepContent()}
       
-      <div>
+      <ButtonContainer>
         {currentStep > 1 && (
-          <NextButton onClick={handlePreviousStep}>
+          <BackButton onClick={handlePreviousStep}>
             {currentLanguage === 'hu' ? 'Vissza' : 'Back'}
-          </NextButton>
+          </BackButton>
         )}
         {currentStep < 3 && (
-          <NextButton onClick={handleNextStep}>
+          <StyledButton onClick={handleNextStep}>
             {currentLanguage === 'hu' ? 'Tovább' : 'Next'}
-          </NextButton>
+          </StyledButton>
         )}
         {currentStep === 3 && (
-          <SubmitButton onClick={handleSubmitOrder} disabled={isSubmitting}>
+          <StyledButton onClick={handleSubmitOrder} disabled={isSubmitting}>
             {isSubmitting
               ? (currentLanguage === 'hu' ? 'Feldolgozás...' : 'Processing...')
               : (currentLanguage === 'hu' ? 'Megrendelés küldése' : 'Submit Order')}
-          </SubmitButton>
+          </StyledButton>
         )}
-      </div>
+      </ButtonContainer>
     </CartContainer>
   );
 };
