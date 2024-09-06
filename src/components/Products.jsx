@@ -150,7 +150,7 @@ const AddToCartButton = styled.button`
 `;
 
 function Products({ currentLanguage }) {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { addToCart } = useContext(CartContext);
@@ -164,7 +164,7 @@ function Products({ currentLanguage }) {
         return response.json();
       })
       .then((data) => {
-        setProducts(data);
+        setProducts(data.categories);
         setLoading(false);
       })
       .catch((error) => {
@@ -182,49 +182,53 @@ function Products({ currentLanguage }) {
     return <ErrorMessage>Error: {error}</ErrorMessage>;
   }
 
+  const renderProduct = (product) => {
+    const description = product.description[currentLanguage] || product.description.en;
+    const price = `${product.rental.price.amount} ${product.rental.price.currency}`;
+
+    const handleAddToCart = () => {
+      addToCart({
+        id: product.id,
+        name: `${product.brand} ${product.model}`,
+        price: product.rental.price.amount,
+        image: product.image
+      });
+    };
+
+    return (
+      <ProductCard key={product.id}>
+        <ProductImageContainer>
+          <ProductImage src={product.image} alt={`${product.brand} ${product.model}`} />
+        </ProductImageContainer>
+        <ProductDetails>
+          <ProductTitle>{`${product.brand} ${product.model}`}</ProductTitle>
+          <ProductDescription>{description}</ProductDescription>
+          <ProductPrice>{price}</ProductPrice>
+          <SpecificationsList>
+            {product.specifications.dimensions && (
+              <SpecificationItem>
+                <strong>Dimensions:</strong> {`${product.specifications.dimensions.width} x ${product.specifications.dimensions.height} x ${product.specifications.dimensions.depth} ${product.specifications.dimensions.unit}`}
+              </SpecificationItem>
+            )}
+            {product.specifications.weight && (
+              <SpecificationItem>
+                <strong>Weight:</strong> {`${product.specifications.weight.value} ${product.specifications.weight.unit}`}
+              </SpecificationItem>
+            )}
+          </SpecificationsList>
+          <AddToCartButton onClick={handleAddToCart}>
+            {currentLanguage === "de" ? "In den Warenkorb" : "Add to Cart"}
+          </AddToCartButton>
+        </ProductDetails>
+      </ProductCard>
+    );
+  };
+
   return (
     <>
       <GlobalProductsStyle />
       <ProductsContainer>
-        {products.map((product) => {
-          const productText = product.content.text[currentLanguage];
-
-          if (!productText) {
-            return null;
-          }
-
-          const handleAddToCart = () => {
-            addToCart({
-              id: product.filename,
-              name: productText.model,
-              price: parseFloat(productText.price.replace(/[^0-9.-]+/g,"")),
-              image: product.content.images[0].url
-            });
-          };
-
-          return (
-            <ProductCard key={product.filename}>
-              <ProductImageContainer>
-                <ProductImage src={product.content.images[0].url} alt={productText.model} />
-              </ProductImageContainer>
-              <ProductDetails>
-                <ProductTitle>{productText.model}</ProductTitle>
-                <ProductDescription>{productText.description}</ProductDescription>
-                <ProductPrice>{productText.price}</ProductPrice>
-                <SpecificationsList>
-                  {Object.entries(productText.specifications).map(([key, value]) => (
-                    <SpecificationItem key={key}>
-                      <strong>{key}:</strong> {value}
-                    </SpecificationItem>
-                  ))}
-                </SpecificationsList>
-                <AddToCartButton onClick={handleAddToCart}>
-                  {currentLanguage === "hu" ? "Kosárba" : "Add to Cart"}
-                </AddToCartButton>
-              </ProductDetails>
-            </ProductCard>
-          );
-        })}
+        {Object.values(products).flat().map(renderProduct)}
       </ProductsContainer>
     </>
   );

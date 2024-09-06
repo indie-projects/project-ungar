@@ -1,387 +1,353 @@
-[
-  {
-    "filename": "The Box Pro DSX 115 M",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A The Box Pro DSX 115M Aktív Monitor Hangfal tökéletes választás eseményekre, rendezvényekre vagy esküvőkre.",
-          "price": "10.000 Ft / db / alkalom",
-          "model": "The Box Pro DSX 115M Aktív Hangfal",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "565 x 665 x 475 mm",
-            "weight": "23kg"
+{
+  "version": "1.0",
+  "last_updated": "2024-09-06",
+  "categories": {
+    "speakers": [
+      {
+        "id": "the-box-pro-dsx-115-m",
+        "brand": "The Box Pro",
+        "model": "DSX 115 M",
+        "type": "Active Monitor Speaker",
+        "description": {
+          "en": "Perfect choice for events, parties, or weddings.",
+          "de": "Perfekte Wahl für Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 665,
+            "width": 565,
+            "depth": 475,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 23,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 25,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Box Pro DSX 115M Active Monitor Speaker is a perfect choice for events, parties, or weddings.",
-          "price": "€25 / unit / event",
-          "model": "The Box Pro DSX 115M Active Speaker",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "565 x 665 x 475 mm",
-            "weight": "23kg"
-          }
-        }
+        "image": "/images/The Box Pro DSX 115 M_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "The_Box_Pro_DSX_115_M.png",
-          "url": "/images/The Box Pro DSX 115 M_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Martin Audio Blackline F10+-1",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Martin Audio Blackline F10+ Passzív Hangfal tökéletes választás eseményekre, rendezvényekre vagy beszéd hangosításra.",
-          "price": "10.000 Ft / db / alkalom",
-          "model": "Martin Audio F10+ Passzív Hangfal",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "351 x 500 x 317 mm",
-            "weight": "17kg"
+      {
+        "id": "martin-audio-blackline-f10-plus",
+        "brand": "Martin Audio",
+        "model": "Blackline F10+",
+        "type": "Passive Speaker",
+        "description": {
+          "en": "Perfect for events, conferences, or speech amplification.",
+          "de": "Perfekt für Veranstaltungen, Konferenzen oder Sprachverstärkung."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 500,
+            "width": 351,
+            "depth": 317,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 17,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 25,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Martin Audio Blackline F10+ Passive Speaker is perfect for events, conferences, or speech amplification.",
-          "price": "€25 / unit / event",
-          "model": "Martin Audio F10+ Passive Speaker",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "351 x 500 x 317 mm",
-            "weight": "17kg"
-          }
-        }
+        "image": "/images/Martin Audio Blackline F10+-1_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "Martin_Audio_Blackline_F10+-1.png",
-          "url": "/images/Martin Audio Blackline F10+-1_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Sennheiser E835 S",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Sennheiser E835 S Vezetékes Mikrofon tökéletes választás eseményekre, rendezvényekre vagy esküvőkre zenekarok számára.",
-          "price": "5.000 Ft / db / alkalom",
-          "model": "Sennheiser E835 S",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "N/A",
-            "weight": "330g"
+      {
+        "id": "rcf-sub-705-as-mk3",
+        "brand": "RCF",
+        "model": "SUB 705-AS MK3",
+        "type": "Active Subwoofer",
+        "description": {
+          "en": "Ideal for indoor events, parties, or weddings.",
+          "de": "Ideal für Indoor-Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 420,
+            "width": 598,
+            "depth": 590,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 27.5,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 37,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Sennheiser E835 S Wired Microphone is perfect for events, concerts, or weddings.",
-          "price": "€12 / unit / event",
-          "model": "Sennheiser E835 S",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "N/A",
-            "weight": "330g"
-          }
-        }
+        "image": "/images/RCF SUB 705-AS MK3_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "Sennheiser_E835_S.png",
-          "url": "/images/Sennheiser E835 S_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "RCF SUB 705-AS MK3",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "Az RCF SUB 705-AS MK3 Aktív Mélyláda tökéletes választás beltéri eseményekre, rendezvényekre vagy esküvőkre.",
-          "price": "15.000 Ft / db / alkalom",
-          "model": "RCF SUB 705-AS MK3 Aktív Hangfal",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "598 x 420 x 590 mm",
-            "weight": "27.5kg"
+      {
+        "id": "rcf-tts-18-p",
+        "brand": "RCF",
+        "model": "TTS 18-P",
+        "type": "Passive Subwoofer",
+        "description": {
+          "en": "Ideal for events, parties, or weddings.",
+          "de": "Ideal für Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 540,
+            "width": 708,
+            "depth": 732,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 45,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 62,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The RCF SUB 705-AS MK3 Active Subwoofer is ideal for indoor events, parties, or weddings.",
-          "price": "€37 / unit / event",
-          "model": "RCF SUB 705-AS MK3 Active Speaker",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "598 x 420 x 590 mm",
-            "weight": "27.5kg"
-          }
-        }
+        "image": "/images/RCF TTS 18-P_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "RCF_SUB_705-AS_MK3.png",
-          "url": "/images/RCF SUB 705-AS MK3_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "RCF TTS 18-P",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "Az RCF TTS 18-P Passzív Mélyláda tökéletes választás eseményekre, rendezvényekre vagy esküvőkre.",
-          "price": "25.000 Ft / db / alkalom",
-          "model": "RCF TTS 18-P Passzív Hangfal",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "708 x 540 x 732 mm",
-            "weight": "45kg"
+      {
+        "id": "rcf-art-912-a",
+        "brand": "RCF",
+        "model": "ART 912-A",
+        "type": "Active Speaker",
+        "description": {
+          "en": "Perfect for events, parties, or weddings.",
+          "de": "Perfekt für Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 642,
+            "width": 370,
+            "depth": 363,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 19,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 31,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The RCF TTS 18-P Passive Subwoofer is ideal for events, parties, or weddings.",
-          "price": "€62 / unit / event",
-          "model": "RCF TTS 18-P Passive Speaker",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "708 x 540 x 732 mm",
-            "weight": "45kg"
-          }
-        }
-      },
-      "images": [
-        {
-          "filename": "RCF_TTS_18-P.png",
-          "url": "/images/RCF TTS 18-P_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Pioneer XDJ RX",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Pioneer XDJ RX professzionális DJ pult tökéletes választás eseményekre, rendezvényekre, klubokba és bárokba.",
-          "price": "20.000 Ft / alkalom",
-          "model": "Pioneer XDJ RX",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "782 x 104 x 411 mm",
-            "weight": "8kg"
+        "image": "/images/Rcf ART 912A_page_0_img_0.png"
+      }
+    ],
+    "microphones": [
+      {
+        "id": "sennheiser-e835-s",
+        "brand": "Sennheiser",
+        "model": "E835 S",
+        "type": "Wired Microphone",
+        "description": {
+          "en": "Perfect for events, concerts, or weddings.",
+          "de": "Perfekt für Veranstaltungen, Konzerte oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": null,
+          "weight": {
+            "value": 330,
+            "unit": "g"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 12,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Pioneer XDJ RX professional DJ console is perfect for events, parties, clubs, and bars.",
-          "price": "€50 / event",
-          "model": "Pioneer XDJ RX",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "782 x 104 x 411 mm",
-            "weight": "8kg"
-          }
-        }
+        "image": "/images/Sennheiser E835 S_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "Pioneer_XDJ_RX.png",
-          "url": "/images/Pioneer XDJ RX_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Pioneer DDJ-800",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Pioneer DDJ-800 2 csatornás DJ-kontroller tökéletes választás eseményekre, rendezvényekre, klubokba és bárokba.",
-          "price": "15.000 Ft / alkalom",
-          "model": "Pioneer DDJ-800",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "632 x 69.7 x 334.5 mm",
-            "weight": "4.7kg"
+      {
+        "id": "shure-slx4-sm58",
+        "brand": "Shure",
+        "model": "SLX4 / SM58",
+        "type": "Wireless Microphone",
+        "description": {
+          "en": "Ideal for bands performing at events, parties, or weddings.",
+          "de": "Ideal für Bands bei Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": null,
+          "weight": null,
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 18,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Pioneer DDJ-800 2-channel DJ controller is ideal for events, parties, clubs, and bars.",
-          "price": "€37 / event",
-          "model": "Pioneer DDJ-800",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "632 x 69.7 x 334.5 mm",
-            "weight": "4.7kg"
-          }
-        }
-      },
-      "images": [
-        {
-          "filename": "Pioneer_DDJ-800.png",
-          "url": "/images/Pioneer DDJ-800_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Crown XTi 2002",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Crown XTi 2002 Végfok tökéletes választás eseményekre, rendezvényekre vagy esküvőkre passzív hangfalak meghajtására.",
-          "price": "10.000 Ft / db / alkalom",
-          "model": "Crown XTi 2002",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "485 x 89 x 311 mm",
-            "weight": "8.4kg"
+        "image": "/images/Shure SLX4 SM58_page_0_img_0.png"
+      }
+    ],
+    "dj_equipment": [
+      {
+        "id": "pioneer-xdj-rx",
+        "brand": "Pioneer",
+        "model": "XDJ RX",
+        "type": "DJ Console",
+        "description": {
+          "en": "Perfect for events, parties, clubs, and bars.",
+          "de": "Perfekt für Veranstaltungen, Partys, Clubs und Bars."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 104,
+            "width": 782,
+            "depth": 411,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 8,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 50,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Crown XTi 2002 power amplifier is ideal for driving passive speakers at events, parties, or weddings.",
-          "price": "€25 / unit / event",
-          "model": "Crown XTi 2002",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "485 x 89 x 311 mm",
-            "weight": "8.4kg"
-          }
-        }
+        "image": "/images/Pioneer XDJ RX_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "Crown_XTi_2002.png",
-          "url": "/images/Crown XTi 2002_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "Shure SLX4 SM58",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A Shure SLX4 / SM58 Vezeték nélküli Mikrofon tökéletes választás eseményekre, rendezvényekre vagy esküvőkre zenekarok számára.",
-          "price": "7.500 Ft / db / alkalom",
-          "model": "Shure SLX4 / SM58",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "N/A",
-            "weight": "N/A"
+      {
+        "id": "pioneer-ddj-800",
+        "brand": "Pioneer",
+        "model": "DDJ-800",
+        "type": "DJ Controller",
+        "description": {
+          "en": "Ideal for events, parties, clubs, and bars.",
+          "de": "Ideal für Veranstaltungen, Partys, Clubs und Bars."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 69.7,
+            "width": 632,
+            "depth": 334.5,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 4.7,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 37,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The Shure SLX4 / SM58 wireless microphone is ideal for bands performing at events, parties, or weddings.",
-          "price": "€18 / unit / event",
-          "model": "Shure SLX4 / SM58",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "N/A",
-            "weight": "N/A"
-          }
-        }
-      },
-      "images": [
-        {
-          "filename": "Shure_SLX4_SM58.png",
-          "url": "/images/Shure SLX4 SM58_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "RCF ART 912-A",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "Az RCF ART 912-A Hangfal tökéletes választás eseményekre, rendezvényekre vagy esküvőkre.",
-          "price": "12.500 Ft / db / alkalom",
-          "model": "RCF ART 912-A Aktív Hangfal",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "642 x 370 x 363 mm",
-            "weight": "19kg"
+        "image": "/images/Pioneer DDJ-800_page_0_img_0.png"
+      }
+    ],
+    "amplifiers": [
+      {
+        "id": "crown-xti-2002",
+        "brand": "Crown",
+        "model": "XTi 2002",
+        "type": "Power Amplifier",
+        "description": {
+          "en": "Ideal for driving passive speakers at events, parties, or weddings.",
+          "de": "Ideal zum Antreiben von passiven Lautsprechern bei Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 89,
+            "width": 485,
+            "depth": 311,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 8.4,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 25,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The RCF ART 912-A speaker is perfect for events, parties, or weddings.",
-          "price": "€31 / unit / event",
-          "model": "RCF ART 912-A Active Speaker",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "642 x 370 x 363 mm",
-            "weight": "19kg"
-          }
-        }
+        "image": "/images/Crown XTi 2002_page_0_img_0.png"
       },
-      "images": [
-        {
-          "filename": "RCF_ART_912-A.png",
-          "url": "/images/Rcf ART 912A_page_0_img_0.png"
-        }
-      ]
-    }
-  },
-  {
-    "filename": "PKN Audio XE-10000",
-    "content": {
-      "text": {
-        "hu": {
-          "description": "A PKN Audio XE-10000 Végfok tökéletes választás eseményekre, rendezvényekre vagy esküvőkre passzív hangfalak meghajtására.",
-          "price": "15.000 Ft / db / alkalom",
-          "model": "PKN Audio XE-10000",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "483 x 440 x 44 mm",
-            "weight": "9.6kg"
+      {
+        "id": "pkn-audio-xe-10000",
+        "brand": "PKN Audio",
+        "model": "XE-10000",
+        "type": "Power Amplifier",
+        "description": {
+          "en": "Ideal for driving passive speakers at events, parties, or weddings.",
+          "de": "Ideal zum Antreiben von passiven Lautsprechern bei Veranstaltungen, Partys oder Hochzeiten."
+        },
+        "specifications": {
+          "dimensions": {
+            "height": 44,
+            "width": 483,
+            "depth": 440,
+            "unit": "mm"
+          },
+          "weight": {
+            "value": 9.6,
+            "unit": "kg"
+          },
+          "power": null,
+          "sound_pressure": null
+        },
+        "rental": {
+          "price": {
+            "amount": 37,
+            "currency": "EUR",
+            "unit": "per event"
           }
         },
-        "en": {
-          "description": "The PKN Audio XE-10000 power amplifier is ideal for driving passive speakers at events, parties, or weddings.",
-          "price": "€37 / unit / event",
-          "model": "PKN Audio XE-10000",
-          "specifications": {
-            "power": "N/A",
-            "sound_pressure": "N/A",
-            "dimensions": "483 x 440 x 44 mm",
-            "weight": "9.6kg"
-          }
-        }
-      },
-      "images": [
-        {
-          "filename": "PKN_Audio_XE-10000.png",
-          "url": "/images/PKN Audio XE10000_page_0_img_0.png"
-        }
-      ]
-    }
+        "image": "/images/PKN Audio XE10000_page_0_img_0.png"
+      }
+    ]
   }
-]
+}
