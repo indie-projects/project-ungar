@@ -1,12 +1,23 @@
-import React, { useContext, useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useContext, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { toast } from 'react-toastify';
 import CartContext from '../CartContext';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { calculateDaysDifference } from './calculateDaysDifference';
+// import { sendOrderEmail } from '../utils/emailService'; // Assume this function exists to send emails
 
+// Keyframes for animations
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
+// Styled components
 const CartContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -15,6 +26,7 @@ const CartContainer = styled.div`
   color: #e0e0e0;
   flex-grow: 1;
   overflow-y: auto;
+  animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 const CartItem = styled.div`
@@ -213,8 +225,33 @@ const SubtotalInfo = styled.div`
   color: #ccc;
 `;
 
+const StepIndicator = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+const StepButton = styled.button`
+  background-color: ${props => props.active ? '#1db954' : '#333'};
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  opacity: ${props => props.disabled ? 0.5 : 1};
+  transition: background-color 0.3s, opacity 0.3s;
+
+  &:hover {
+    background-color: ${props => props.active ? '#1ed760' : '#444'};
+  }
+`;
+
+const NextButton = styled(SubmitButton)`
+  margin-top: 20px;
+`;
+
 const Cart = ({ currentLanguage }) => {
   const { cart, removeFromCart, updateQuantity, updateDateRange, cartTotal, clearCart } = useContext(CartContext);
+  const [currentStep, setCurrentStep] = useState(1);
   const [customerInfo, setCustomerInfo] = useState({
     firstName: '',
     lastName: '',
@@ -294,26 +331,50 @@ const Cart = ({ currentLanguage }) => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errors = validateForm();
-    setFormErrors(errors);
-    setIsSubmitting(Object.keys(errors).length === 0);
+  const handleNextStep = () => {
+    if (currentStep === 1 && cart.length === 0) {
+      toast.error(currentLanguage === 'hu' ? 'A kosár üres' : 'Your cart is empty');
+      return;
+    }
+    if (currentStep === 2) {
+      const errors = validateForm();
+      if (Object.keys(errors).length > 0) {
+        setFormErrors(errors);
+        return;
+      }
+    }
+    setCurrentStep(prevStep => prevStep + 1);
   };
 
-  const handleSubmitOrder = () => {
-    // Here you would typically send the order to your backend
-    console.log('Submitting order:', { cart, customerInfo });
-    toast.success(currentLanguage === 'hu' ? 'Rendelés sikeresen elküldve!' : 'Order successfully submitted!');
-    // Reset cart and form after successful submission  
-    clearCart();
-    setCustomerInfo({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: ''
-    });
-    setIsSubmitting(false);
+  const handlePreviousStep = () => {
+    setCurrentStep(prevStep => prevStep - 1);
+  };
+
+  const handleSubmitOrder = async () => {
+    try {
+      setIsSubmitting(true);
+      // Here you would typically send the order to your backend
+      console.log('Submitting order:', { cart, customerInfo });
+      
+      // Simulate sending an email
+      await sendOrderEmail({ cart, customerInfo, cartTotal });
+      
+      toast.success(currentLanguage === 'hu' ? 'Rendelés sikeresen elküldve!' : 'Order successfully submitted!');
+      // Reset cart and form after successful submission
+      clearCart();
+      setCustomerInfo({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: ''
+      });
+      setCurrentStep(1);
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      toast.error(currentLanguage === 'hu' ? 'Hiba történt a rendelés küldése során. Kérjük, próbálja újra.' : 'An error occurred while submitting your order. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const calculateSubtotal = (item) => {
@@ -321,23 +382,8 @@ const Cart = ({ currentLanguage }) => {
     return item.price * days * item.quantity;
   };
 
-  if (cart.length === 0) {
-    return (
-      <CartContainer>
-        <h1>{currentLanguage === 'hu' ? 'Kosár' : 'Cart'}</h1>
-        <EmptyCartMessage>
-          {currentLanguage === 'hu' ? 'A kosár üres' : 'Your cart is empty'}
-        </EmptyCartMessage>
-        <TotalPrice>
-        {currentLanguage === 'hu' ? 'Összesen:' : 'Total:'} {cartTotal.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
-      </TotalPrice>
-      </CartContainer>
-    );
-  }
-
-  return (
-    <CartContainer>
-      <h1>{currentLanguage === 'hu' ? 'Kosár' : 'Cart'}</h1>
+  const renderCartItems = () => (
+    <>
       {cart.map((item) => (
         <CartItem key={item.id}>
           <ItemImage src={item.image} alt={item.name} />
@@ -373,7 +419,7 @@ const Cart = ({ currentLanguage }) => {
                   placeholderText={currentLanguage === 'hu' ? 'Befejező dátum' : 'End Date'}
                   dateFormat="yyyy-MM-dd"
                   required  
-                  aria-label={currentLanguage === 'hu' ? 'Befejező dátum' : 'End Date'}
+                  aria-label={currentLanguage === 'hu' ?  'Befejező dátum' : 'End Date'}
                 />
               </DatePickerContainer>
             </DatePickerWrapper>
@@ -410,57 +456,129 @@ const Cart = ({ currentLanguage }) => {
       <TotalPrice>
         {currentLanguage === 'hu' ? 'Végösszeg:' : 'Total:'} {cartTotal.toFixed(2)} {currentLanguage === 'hu' ? 'Ft' : '€'}
       </TotalPrice>
-      <CustomerForm onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="firstName"
-          placeholder={currentLanguage === 'hu' ? 'Keresztnév*' : 'First Name*'}
-          value={customerInfo.firstName}
-          onChange={handleInputChange}
-          required
-          aria-invalid={formErrors.firstName ? 'true' : 'false'}
-          aria-describedby="firstNameError"
-        />
-        {formErrors.firstName && <ErrorMessage id="firstNameError">{formErrors.firstName}</ErrorMessage>}
-        <FormInput
-          type="text"
-          name="lastName"
-          placeholder={currentLanguage === 'hu' ? 'Vezetéknév*' : 'Last Name*'}  
-          value={customerInfo.lastName}
-          onChange={handleInputChange}
-          required
-          aria-invalid={formErrors.lastName ? 'true' : 'false'} 
-          aria-describedby="lastNameError"
-        />
-        {formErrors.lastName && <ErrorMessage id="lastNameError">{formErrors.lastName}</ErrorMessage>}
-        <FormInput
-          type="email"
-          name="email"
-          placeholder={currentLanguage === 'hu' ? 'E-mail cím*' : 'Email*'}
-          value={customerInfo.email}
-          onChange={handleInputChange}
-          required
-          aria-invalid={formErrors.email ? 'true' : 'false'}
-          aria-describedby="emailError"  
-        />
-        {formErrors.email && <ErrorMessage id="emailError">{formErrors.email}</ErrorMessage>}
-        <FormInput
-          type="tel"
-          name="phone"
-          placeholder={currentLanguage === 'hu' ? 'Telefonszám*' : 'Phone Number*'}
-          value={customerInfo.phone}
-          onChange={handleInputChange}
-          required
-          aria-invalid={formErrors.phone ? 'true' : 'false'}
-          aria-describedby="phoneError"
-        />
-        {formErrors.phone && <ErrorMessage id="phoneError">{formErrors.phone}</ErrorMessage>}
-        <SubmitButton type="submit" disabled={isSubmitting}>
-          {isSubmitting
-            ? (currentLanguage === 'hu' ? 'Feldolgozás...' : 'Processing...')
-            : (currentLanguage === 'hu' ? 'Megrendelés küldése' : 'Submit Order')}
-        </SubmitButton>
-      </CustomerForm>
+    </>
+  );
+
+  const renderCustomerForm = () => (
+    <CustomerForm onSubmit={(e) => e.preventDefault()}>
+      <FormInput
+        type="text"
+        name="firstName"
+        placeholder={currentLanguage === 'hu' ? 'Keresztnév*' : 'First Name*'}
+        value={customerInfo.firstName}
+        onChange={handleInputChange}
+        required
+        aria-invalid={formErrors.firstName ? 'true' : 'false'}
+        aria-describedby="firstNameError"
+      />
+      {formErrors.firstName && <ErrorMessage id="firstNameError">{formErrors.firstName}</ErrorMessage>}
+      <FormInput
+        type="text"
+        name="lastName"
+        placeholder={currentLanguage === 'hu' ? 'Vezetéknév*' : 'Last Name*'}  
+        value={customerInfo.lastName}
+        onChange={handleInputChange}
+        required
+        aria-invalid={formErrors.lastName ? 'true' : 'false'} 
+        aria-describedby="lastNameError"
+      />
+      {formErrors.lastName && <ErrorMessage id="lastNameError">{formErrors.lastName}</ErrorMessage>}
+      <FormInput
+        type="email"
+        name="email"
+        placeholder={currentLanguage === 'hu' ? 'E-mail cím*' : 'Email*'}
+        value={customerInfo.email}
+        onChange={handleInputChange}
+        required
+        aria-invalid={formErrors.email ? 'true' : 'false'}
+        aria-describedby="emailError"  
+      />
+      {formErrors.email && <ErrorMessage id="emailError">{formErrors.email}</ErrorMessage>}
+      <FormInput
+        type="tel"
+        name="phone"
+        placeholder={currentLanguage === 'hu' ? 'Telefonszám*' : 'Phone Number*'}
+        value={customerInfo.phone}
+        onChange={handleInputChange}
+        required
+        aria-invalid={formErrors.phone ? 'true' : 'false'}
+        aria-describedby="phoneError"
+      />
+      {formErrors.phone && <ErrorMessage id="phoneError">{formErrors.phone}</ErrorMessage>}
+    </CustomerForm>
+  );
+
+  const renderOrderSummary = () => (
+    <>
+      <h2>{currentLanguage === 'hu' ? 'Rendelés összefoglaló' : 'Order Summary'}</h2>
+      {renderCartItems()}
+      <h3>{currentLanguage === 'hu' ? 'Kapcsolattartási adatok' : 'Contact Information'}</h3>
+      <p>{customerInfo.firstName} {customerInfo.lastName}</p>
+      <p>{customerInfo.email}</p>
+      <p>{customerInfo.phone}</p>
+    </>
+  );
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return renderCartItems();
+      case 2:
+        return renderCustomerForm();
+      case 3:
+        return renderOrderSummary();
+      default:
+        return null;
+    }
+  };
+
+  if (cart.length === 0 && currentStep === 1) {
+    return (
+      <CartContainer>
+        <h1>{currentLanguage === 'hu' ? 'Kosár' : 'Cart'}</h1>
+        <EmptyCartMessage>
+          {currentLanguage === 'hu' ? 'A kosár üres' : 'Your cart is empty'}
+        </EmptyCartMessage>
+      </CartContainer>
+    );
+  }
+
+  return (
+    <CartContainer>
+      <h1>{currentLanguage === 'hu' ? 'Kosár' : 'Cart'}</h1>
+      <StepIndicator>
+        <StepButton active={currentStep === 1} onClick={() => setCurrentStep(1)}>
+          {currentLanguage === 'hu' ? 'Kosár' : 'Cart'}
+        </StepButton>
+        <StepButton active={currentStep === 2} disabled={cart.length === 0} onClick={() => setCurrentStep(2)}>
+          {currentLanguage === 'hu' ? 'Adatok' : 'Information'}
+        </StepButton>
+        <StepButton active={currentStep === 3} disabled={cart.length === 0 || Object.keys(formErrors).length > 0} onClick={() => setCurrentStep(3)}>
+          {currentLanguage === 'hu' ? 'Összegzés' : 'Summary'}
+        </StepButton>
+      </StepIndicator>
+      
+      {renderStepContent()}
+      
+      <div>
+        {currentStep > 1 && (
+          <NextButton onClick={handlePreviousStep}>
+            {currentLanguage === 'hu' ? 'Vissza' : 'Back'}
+          </NextButton>
+        )}
+        {currentStep < 3 && (
+          <NextButton onClick={handleNextStep}>
+            {currentLanguage === 'hu' ? 'Tovább' : 'Next'}
+          </NextButton>
+        )}
+        {currentStep === 3 && (
+          <SubmitButton onClick={handleSubmitOrder} disabled={isSubmitting}>
+            {isSubmitting
+              ? (currentLanguage === 'hu' ? 'Feldolgozás...' : 'Processing...')
+              : (currentLanguage === 'hu' ? 'Megrendelés küldése' : 'Submit Order')}
+          </SubmitButton>
+        )}
+      </div>
     </CartContainer>
   );
 };
