@@ -8,7 +8,8 @@ import Products from "./sites/Products";
 import Home from "./sites/Home";
 import Contact from "./sites/Contact";
 import Footer from "./components/Footer";
-import { CartProvider } from "./CartProvider";
+import CartContext from "./hooks/CartContext";
+import { CartProvider } from "./hooks/CartProvider";
 import Cart from "./components/Cart";   
 
 const GlobalStyle = createGlobalStyle`

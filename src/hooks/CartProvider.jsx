@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
-import CartContext from './hooks/CartContext';
-import { calculateDaysDifference } from '../src/components/calculateDaysDifference';
+import CartContext from '../hooks/CartContext';
+import { calculateDaysDifference } from '../components/calculateDaysDifference';
 
 
 export const CartProvider = ({ children }) => {
