@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import logo from "../assets/IMG_0106.png";
-import CartContext from '../CartContext';
+import CartContext from '../hooks/CartContext';
 import { FaBars, FaTimes, FaShoppingCart, FaHome, FaBoxOpen, FaEnvelope } from "react-icons/fa";
 
 // Keyframes for sanftes Einblenden des Navbars

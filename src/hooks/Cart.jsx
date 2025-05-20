@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { toast } from 'react-toastify';
-import CartContext from '../hooks/CartContext';
+import CartContext from '../CartContext';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { calculateDaysDifference } from './calculateDaysDifference';
+import { calculateDaysDifference } from '../components/calculateDaysDifference';
 // import { sendOrderEmail } from '../utils/emailService'; // Assume this function exists to send emails
 
 // Keyframes for animations

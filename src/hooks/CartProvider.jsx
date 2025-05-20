@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
-import CartContext from './CartContext';
+import CartContext from './hooks/CartContext';
 import { calculateDaysDifference } from '../src/components/calculateDaysDifference';
 
 

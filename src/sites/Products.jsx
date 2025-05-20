@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
-import CartContext from '../CartContext';
+import CartContext from '../hooks/CartContext';
 
 // Globale Stile für die Produkte-Komponente
 const GlobalProductsStyle = createGlobalStyle`
